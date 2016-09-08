@@ -9,9 +9,10 @@ namespace Tetris
     abstract class Figure
     {
         public Point[] TakenPoints;
+        private bool[,] figureMatrix = new bool[3, 3];
         abstract public void Move(int dx, int dy);
-        abstract public void RotateClockwise();
-        abstract public void RotateCounterClockwise();
+        abstract public void Rotate();
+       
 
     }
 }

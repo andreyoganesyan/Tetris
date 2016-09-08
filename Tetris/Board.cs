@@ -12,7 +12,6 @@ namespace Tetris
         private List<Figure> listOfFigures;
         private void Progress() { }
         public bool PointIsFree(Point input) { return false; }
-        int test=1;
         public void AddFigure() { }
     }
 }

@@ -13,14 +13,10 @@ namespace Tetris
             throw new NotImplementedException();
         }
 
-        public override void RotateClockwise()
+        public override void Rotate()
         {
             throw new NotImplementedException();
         }
-
-        public override void RotateCounterClockwise()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
