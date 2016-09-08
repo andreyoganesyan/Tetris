@@ -8,8 +8,10 @@ namespace Tetris
 {
     abstract class Figure
     {
-        public Point[] TakenPoints;
-        private bool[,] figureMatrix = new bool[3, 3];
+        abstract public List<Point> TakenPoints { get;  }
+
+        protected Point coords;
+        protected byte[,] figureMatrix;
         abstract public void Move(int dx, int dy);
         abstract public void Rotate();
        

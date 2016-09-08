@@ -8,8 +8,20 @@ namespace Tetris
 {
     class Board
     {
-        private bool[] takenPoints;
-        private List<Figure> listOfFigures;
+        public static Board board
+        {
+            get;
+            private set;
+        }
+       
+        public Point initialCoords;
+        private bool[,] takenPoints;
+
+        public Board()
+        {
+            board = this;
+        }
+
         private void Progress() { }
         public bool PointIsFree(Point input) { return false; }
         public void AddFigure() { }
