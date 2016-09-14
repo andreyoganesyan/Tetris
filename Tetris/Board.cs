@@ -23,7 +23,6 @@ namespace Tetris
         }
 
         private void Progress() { }
-        public bool PointIsFree(Point input) { return false; }
         public void AddFigure() { }
     }
 }

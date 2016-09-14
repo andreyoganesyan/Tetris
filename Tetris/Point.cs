@@ -10,12 +10,21 @@ namespace Tetris
     {
         public int X {
             get;
-            set; //TODO:проверка
         }
         public int Y
         {
             get;
-            set; //TODO:проверка
+        }
+
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public static Point operator +(Point point, Point vector)
+        {
+            return new Point(point.X + vector.X, point.Y + vector.Y);
         }
     }
 }

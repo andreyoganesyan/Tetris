@@ -6,22 +6,11 @@ using System.Threading.Tasks;
 
 namespace Tetris
 {
-    class GFigure : Figure
+    class GFigure : RotatableFigure
     {
-        public override List<Point> TakenPoints
-        {
-            get
-            {
-                List<Point> takenPoints = new List<Point>();
-                for (int i = 0; i < figureMatrix.Length; i++)
-                {
-
-                }
-            }
-            
-        }
-        int rotationState;
-        byte[][,] rotationStates;
+       
+        
+        
         public GFigure()
         {
             rotationStates = new byte[4][,];
@@ -41,19 +30,12 @@ namespace Tetris
                                               { 0, 1, 0 },
                                               { 1, 1, 0 } };
             rotationState = 0;
-            figureMatrix = rotationStates[rotationState];
             coords = Board.board.initialCoords;
+            RelativeTakenPoints = GetRelativeTakenPointsFromArray(rotationStates[rotationState]);
         }
         public override void Move(int dx, int dy)
         {
             throw new NotImplementedException();
-        }
-
-        public override void Rotate()
-        {
-            rotationState++;
-            rotationState %= rotationStates.Length;
-            figureMatrix = rotationStates[rotationState];
         }
     }
 }

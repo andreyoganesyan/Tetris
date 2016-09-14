@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Tetris
 {
-    class LineFigure : Figure
+    class LineFigure : RotatableFigure
     {
-        int rotationState;
-        byte[][,] rotationStates;
+        
         public LineFigure()
         {
-            rotationStates = new byte[4][,];
+            rotationStates = new byte[2][,];
             rotationStates[0] = new byte[,] { { 0, 1, 0, 0 },
                                               { 0, 1, 0, 0 },
                                               { 0, 1, 0, 0 },
@@ -23,19 +22,8 @@ namespace Tetris
                                               { 0, 0, 0, 0 },
                                               { 0, 0, 0, 0 } };
             rotationState = 0;
-            figureMatrix = rotationStates[rotationState];
             coords = Board.board.initialCoords;
-        }
-        public override void Move(int dx, int dy)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Rotate()
-        {
-            rotationState++;
-            rotationState %= rotationStates.Length;
-            figureMatrix = rotationStates[rotationState];
+            RelativeTakenPoints = GetRelativeTakenPointsFromArray(rotationStates[rotationState]);
         }
         
     }

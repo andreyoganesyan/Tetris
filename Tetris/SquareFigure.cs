@@ -8,18 +8,15 @@ namespace Tetris
 {
     class SquareFigure : Figure
     {
+        byte[,] figureMatrix;
         public SquareFigure()
         {
             figureMatrix = new byte[,]{ { 1, 1, 0 },
                                         { 1, 1, 0 },
                                         { 0, 0, 0 } };
             coords = Board.board.initialCoords;
-        }
-        public override void Move(int dx, int dy)
-        {
-            throw new NotImplementedException();
+            RelativeTakenPoints = GetRelativeTakenPointsFromArray(figureMatrix);
         }
 
-        public override void Rotate() { }
     }
 }
