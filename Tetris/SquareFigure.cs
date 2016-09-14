@@ -11,9 +11,8 @@ namespace Tetris
         byte[,] figureMatrix;
         public SquareFigure()
         {
-            figureMatrix = new byte[,]{ { 1, 1, 0 },
-                                        { 1, 1, 0 },
-                                        { 0, 0, 0 } };
+            figureMatrix = new byte[,]{ { 1, 1 },
+                                        { 1, 1 } };
             coords = Board.board.initialCoords;
             RelativeTakenPoints = GetRelativeTakenPointsFromArray(figureMatrix);
         }
