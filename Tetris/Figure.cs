@@ -12,8 +12,22 @@ namespace Tetris
         protected List<Point> RelativeTakenPoints { get; set; }
         
         protected Point coords;
-        public void Move(Point vector) {
-            coords += vector;
+        public void Move(Direction direction) {
+            switch (direction)
+            {
+                case Direction.Right:
+                    coords += new Point(1, 0);
+                    break;
+                case Direction.Left:
+                    coords += new Point(-1, 0);
+                    break;
+                case Direction.Up:
+                    coords += new Point(0, -1);
+                    break;
+                case Direction.Down:
+                    coords += new Point(0, 1);
+                    break;
+            }
         }
         protected List<Point> GetRelativeTakenPointsFromArray(byte[,] figureMatrix)
         {
@@ -53,6 +67,37 @@ namespace Tetris
                 }
             }
             return true;
+        }
+        public static Figure GetRandomFigure(Point initialCoords)
+        {
+            int randNumber = (new Random()).Next() * 5;
+            switch (randNumber)
+            {
+                case 0:
+                    {
+                        return new GFigure(initialCoords);
+                    }
+                case 1:
+                    {
+                        return new LineFigure(initialCoords);
+                    }
+                case 2:
+                    {
+                        return new SquareFigure(initialCoords);
+                    }
+                case 3:
+                    {
+                        return new TFigure(initialCoords);
+                    }
+                case 4:
+                    {
+                        return new LeftStepsFigure(initialCoords);
+                    }
+                default:
+                    {
+                        return new RightStepsFigure(initialCoords);
+                    }
+            }
         }
 
     }

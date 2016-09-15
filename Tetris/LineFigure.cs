@@ -9,7 +9,7 @@ namespace Tetris
     class LineFigure : RotatableFigure
     {
         
-        public LineFigure()
+        public LineFigure(Point initialCoords)
         {
             rotationStates = new byte[2][,];
             rotationStates[0] = new byte[,] { { 0, 1 },
@@ -20,7 +20,7 @@ namespace Tetris
             rotationStates[1] = new byte[,] { { 0, 0, 0, 0 },
                                               { 1, 1, 1, 1 } };
             rotationState = 0;
-            coords = Board.board.initialCoords;
+            coords = initialCoords;
             RelativeTakenPoints = GetRelativeTakenPointsFromArray(rotationStates[rotationState]);
         }
         

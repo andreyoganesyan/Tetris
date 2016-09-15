@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Tetris
 {
-    class RightStepsFigure:RotatableFigure
+    class LeftStepsFigure:RotatableFigure
     {
-        public RightStepsFigure(Point initialCoords)
+        public LeftStepsFigure(Point initialCoords)
         {
             rotationStates = new byte[2][,];
-            rotationStates[0] = new byte[,] { { 0, 1, 1 },
-                                              { 1, 1, 0 } };
+            rotationStates[0] = new byte[,] { { 1, 1, 0 },
+                                              { 0, 1, 1 } };
 
-            rotationStates[1] = new byte[,] { { 1, 0 },
+            rotationStates[1] = new byte[,] { { 0, 1 },
                                               { 1, 1 },
-                                              { 0, 1 } };
+                                              { 1, 0 } };
 
             rotationState = 0;
             coords = initialCoords;

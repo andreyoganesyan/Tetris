@@ -11,7 +11,7 @@ namespace Tetris
        
         
         
-        public GFigure()
+        public GFigure(Point initialCoords)
         {
             rotationStates = new byte[4][,];
             rotationStates[0] = new byte[,] { { 1, 0, 0 },
@@ -28,7 +28,7 @@ namespace Tetris
                                               { 0, 1 },
                                               { 1, 1 } };
             rotationState = 0;
-            coords = Board.board.initialCoords;
+            coords = initialCoords;
             RelativeTakenPoints = GetRelativeTakenPointsFromArray(rotationStates[rotationState]);
         }
     }

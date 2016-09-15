@@ -8,21 +8,28 @@ namespace Tetris
 {
     class Board
     {
-        public static Board board
-        {
-            get;
-            private set;
-        }
-       
-        public Point initialCoords;
-        private bool[,] takenPoints;
+      
+        Point initialCoords;
+        private byte[,] takenPoints;
 
-        public Board()
+        Figure currentFigure = null;
+
+        public Board(int width, int height, Point initialCoords)
         {
-            board = this;
+            takenPoints = new byte[height, width];
+            this.initialCoords = initialCoords;
         }
 
-        private void Progress() { }
+        private void Progress() {
+            if (currentFigure == null)
+            {
+                currentFigure = Figure.GetRandomFigure(initialCoords);
+            }
+            else if (currentFigure.CanMove(takenPoints, Direction.Down))
+            {
+                currentFigure.Move()
+            }
+        }
         public void AddFigure() { }
     }
 }

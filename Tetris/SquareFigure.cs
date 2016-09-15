@@ -9,11 +9,11 @@ namespace Tetris
     class SquareFigure : Figure
     {
         byte[,] figureMatrix;
-        public SquareFigure()
+        public SquareFigure(Point initialCoords)
         {
             figureMatrix = new byte[,]{ { 1, 1 },
                                         { 1, 1 } };
-            coords = Board.board.initialCoords;
+            coords = initialCoords;
             RelativeTakenPoints = GetRelativeTakenPointsFromArray(figureMatrix);
         }
 

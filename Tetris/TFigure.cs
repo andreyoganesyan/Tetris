@@ -8,7 +8,7 @@ namespace Tetris
 {
     class TFigure : RotatableFigure
     {
-        public TFigure()
+        public TFigure(Point initialCoords)
         {
             rotationStates = new byte[4][,];
             rotationStates[0] = new byte[,] { { 0, 1, 0 },
@@ -25,7 +25,7 @@ namespace Tetris
                                               { 1, 1 },
                                               { 0, 1 } };
             rotationState = 0;
-            coords = Board.board.initialCoords;
+            coords = initialCoords;
             RelativeTakenPoints = GetRelativeTakenPointsFromArray(rotationStates[rotationState]);
         }
 
