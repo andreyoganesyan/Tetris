@@ -14,7 +14,7 @@ namespace Tetris
             figureMatrix = new byte[,]{ { 1, 1 },
                                         { 1, 1 } };
             coords = initialCoords;
-            RelativeTakenPoints = GetRelativeTakenPointsFromArray(figureMatrix);
+            RelativeTakenPoints = GetRelativeTakenPointsFromArray(figureMatrix);           
         }
 
     }

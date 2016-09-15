@@ -99,6 +99,13 @@ namespace Tetris
                     }
             }
         }
-
+        public void SettleOn(ref byte[,] boardMatrix)
+        {
+            foreach (Point point in RelativeTakenPoints)
+            {
+                Point tempPoint = point + coords;
+                boardMatrix[tempPoint.Y, tempPoint.X] = 1;
+            }
+        }
     }
 }

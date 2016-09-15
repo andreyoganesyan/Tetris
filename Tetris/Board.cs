@@ -10,26 +10,32 @@ namespace Tetris
     {
       
         Point initialCoords;
+        public byte[,] TakenPoints { get { return takenPoints; } }
+        public int Width { get; }
+        public int Height { get; }
         private byte[,] takenPoints;
-
-        Figure currentFigure = null;
-
+        public Figure CurrentFigure { get; private set; }
         public Board(int width, int height, Point initialCoords)
         {
+            Height = height;
+            Width = width;
             takenPoints = new byte[height, width];
             this.initialCoords = initialCoords;
         }
 
         private void Progress() {
-            if (currentFigure == null)
+            if (CurrentFigure == null)
             {
-                currentFigure = Figure.GetRandomFigure(initialCoords);
+                CurrentFigure = Figure.GetRandomFigure(initialCoords);
             }
-            else if (currentFigure.CanMove(takenPoints, Direction.Down))
+            else if (CurrentFigure.CanMove(TakenPoints, Direction.Down))
             {
-                currentFigure.Move()
+                CurrentFigure.Move(Direction.Down);
+            }
+            else
+            {
+                CurrentFigure.SettleOn(ref takenPoints);
             }
         }
-        public void AddFigure() { }
     }
 }
