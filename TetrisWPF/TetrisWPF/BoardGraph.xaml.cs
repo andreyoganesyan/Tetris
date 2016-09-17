@@ -41,7 +41,7 @@ namespace TetrisWPF
                     tempTile.Name = "Tile" + i + "_" + j;
                 }
             }
-            System.Timers.Timer timer = new System.Timers.Timer(3000);
+            System.Timers.Timer timer = new System.Timers.Timer(300);
             
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
@@ -56,18 +56,21 @@ namespace TetrisWPF
 
         public void PaintTileAt(Point point, Brush brush)
         {
-            for (int k = 0; k < canvas.Children.Count; k++)
+            this.Dispatcher.Invoke(() =>
             {
-                if (canvas.Children[k] is Tile)
+                for (int k = 0; k < canvas.Children.Count; k++)
                 {
-                    Tile tile = canvas.Children[k] as Tile;
-                    if (tile.Name == "Tile" + point.Y + "_" + point.X)
+                    if (canvas.Children[k] is Tile)
                     {
-                        tile.Paint(brush);
-                        return;
+                        Tile tile = canvas.Children[k] as Tile;
+                        if (tile.Name == "Tile" + point.Y + "_" + point.X)
+                        {
+                            tile.Paint(brush);
+                            return;
+                        }
                     }
                 }
-            }
+            });
         }
         public void DrawFrom(byte[,] takenPoints, Figure currentFigure)
         {
@@ -91,13 +94,16 @@ namespace TetrisWPF
         }
         void Clean()
         {
-            foreach (object elem in canvas.Children)
+            this.Dispatcher.Invoke(() =>
             {
-                if (elem is Tile)
+                foreach (object elem in canvas.Children)
                 {
-                    (elem as Tile).Paint(Brushes.White);
+                    if (elem is Tile)
+                    {
+                        (elem as Tile).Paint(Brushes.White);
+                    }
                 }
-            }
+            });
         }
     }
 }

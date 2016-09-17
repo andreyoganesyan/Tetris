@@ -70,7 +70,8 @@ namespace TetrisWPF
         }
         public static Figure GetRandomFigure(Point initialCoords)
         {
-            int randNumber = (new Random()).Next() * 5;
+            Random rand = new Random();
+            int randNumber = rand.Next(0,4);
             switch (randNumber)
             {
                 case 0:
@@ -106,6 +107,7 @@ namespace TetrisWPF
                 Point tempPoint = point + coords;
                 boardMatrix[tempPoint.Y, tempPoint.X] = 1;
             }
+            
         }
     }
 }

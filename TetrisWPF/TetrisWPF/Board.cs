@@ -35,6 +35,7 @@ namespace TetrisWPF
             else
             {
                 CurrentFigure.SettleOn(ref takenPoints);
+                CurrentFigure = null;
             }
         }
     }
