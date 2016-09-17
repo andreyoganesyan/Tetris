@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tetris
+namespace TetrisWPF
 {
     public enum Direction {Left, Right, Down, Up}
-    abstract class Figure
+    public abstract class Figure
     {
-        protected List<Point> RelativeTakenPoints { get; set; }
+        public List<Point> RelativeTakenPoints { get; protected set; }
         
-        protected Point coords;
+        public Point coords { get; protected set; }
         public void Move(Direction direction) {
             switch (direction)
             {
@@ -36,7 +36,7 @@ namespace Tetris
             {
                 for (int j = 0; j < figureMatrix.GetLength(1); j++)
                 {
-                    if (figureMatrix[j, i] == 1)
+                    if (figureMatrix[i, j] == 1)
                     {
                         relativeTakenPoints.Add(new Point(j, i));
                     }
@@ -70,7 +70,8 @@ namespace Tetris
         }
         public static Figure GetRandomFigure(Point initialCoords)
         {
-            int randNumber = (new Random()).Next() * 5;
+            Random rand = new Random();
+            int randNumber = rand.Next(0,4);
             switch (randNumber)
             {
                 case 0:
@@ -106,6 +107,7 @@ namespace Tetris
                 Point tempPoint = point + coords;
                 boardMatrix[tempPoint.Y, tempPoint.X] = 1;
             }
+            
         }
     }
 }

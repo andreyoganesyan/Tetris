@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tetris
+namespace TetrisWPF
 {
     class Board
     {
@@ -23,7 +23,7 @@ namespace Tetris
             this.initialCoords = initialCoords;
         }
 
-        private void Progress() {
+        public void Progress() {
             if (CurrentFigure == null)
             {
                 CurrentFigure = Figure.GetRandomFigure(initialCoords);
@@ -35,6 +35,7 @@ namespace Tetris
             else
             {
                 CurrentFigure.SettleOn(ref takenPoints);
+                CurrentFigure = null;
             }
         }
     }
