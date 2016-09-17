@@ -71,7 +71,7 @@ namespace TetrisWPF
         public static Figure GetRandomFigure(Point initialCoords)
         {
             Random rand = new Random();
-            int randNumber = rand.Next(0,4);
+            int randNumber = rand.Next(0,6);
             switch (randNumber)
             {
                 case 0:
@@ -94,10 +94,11 @@ namespace TetrisWPF
                     {
                         return new LeftStepsFigure(initialCoords);
                     }
-                default:
+                case 5:
                     {
                         return new RightStepsFigure(initialCoords);
                     }
+                default: return null;
             }
         }
         public void SettleOn(ref byte[,] boardMatrix)

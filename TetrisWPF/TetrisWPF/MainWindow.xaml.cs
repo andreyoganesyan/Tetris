@@ -20,12 +20,18 @@ namespace TetrisWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        BoardGraph boardGraph;
         public MainWindow()
         {
             InitializeComponent();
-            BoardGraph boardGraph = new BoardGraph(20, 10, 200, 400, new Point(4, 0));
+            boardGraph = new BoardGraph(20, 10, 200, 400, new Point(4, 0));
             Grid.Children.Add(boardGraph);
 
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            boardGraph.KeyIsDown(e);
         }
     }
 }
