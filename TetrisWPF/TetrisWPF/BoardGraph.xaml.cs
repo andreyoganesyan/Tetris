@@ -50,8 +50,13 @@ namespace TetrisWPF
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             CleanFigure();
-            board.Progress();
+            int completedRowsCount;
+            board.Progress(out completedRowsCount);
             DrawFigure(board.CurrentFigure);
+            if (completedRowsCount != 0)
+            {
+                CleanFreeTiles();
+            }
             DrawFrom(board.TakenPoints);
 
         }
@@ -96,15 +101,18 @@ namespace TetrisWPF
                 }
             }
         }
-        void Clean()
+        void CleanFreeTiles()
         {
             this.Dispatcher.Invoke(() =>
             {
-                foreach (object elem in canvas.Children)
+                for (int i = 0; i < board.TakenPoints.GetLength(0); i++)
                 {
-                    if (elem is Tile)
+                    for (int j = 0; j < board.TakenPoints.GetLength(1); j++)
                     {
-                        (elem as Tile).Paint(Brushes.White);
+                        if (board.TakenPoints[i, j] == 0)
+                        {
+                            PaintTileAt(new Point(j, i), Brushes.White);
+                        }
                     }
                 }
             });
