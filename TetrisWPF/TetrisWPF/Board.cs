@@ -10,6 +10,7 @@ namespace TetrisWPF
     {
 
         Point initialCoords;
+        public event EventHandler onGameOver;
         public byte[,] TakenPoints { get { return takenPoints; } }
         public int Width { get; }
         public int Height { get; }
@@ -27,8 +28,12 @@ namespace TetrisWPF
         {
             completedRowsCount = 0;
             if (CurrentFigure == null)
-            {
+            {                
                 CurrentFigure = Figure.GetRandomFigure(initialCoords);
+                if (!CurrentFigure.CanMove(takenPoints, Direction.Spawn))
+                {
+                    onGameOver(this,null);
+                };
             }
             else if (CurrentFigure.CanMove(TakenPoints, Direction.Down))
             {

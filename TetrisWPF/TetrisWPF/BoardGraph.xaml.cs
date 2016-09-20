@@ -22,10 +22,13 @@ namespace TetrisWPF
     {
         Canvas canvas;
         Board board;
+        System.Timers.Timer timer;
+        bool GameIsOn = true;
         public BoardGraph(int numOfRows, int numOfColumns, double width, double height, Point initialCoords)
         {
             InitializeComponent();
             board = new Board(numOfColumns, numOfRows, initialCoords);
+            board.onGameOver += Board_onGameOver;
             canvas = new Canvas();
             MainUC.AddChild(canvas);
             canvas.Height = MainUC.Height;
@@ -41,24 +44,35 @@ namespace TetrisWPF
                     tempTile.Name = "Tile" + i + "_" + j;
                 }
             }
-            System.Timers.Timer timer = new System.Timers.Timer(300);
+            timer = new System.Timers.Timer(300);
             
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
+            
+        }
+
+        private void Board_onGameOver(object sender, EventArgs e)
+        {
+            GameIsOn = false;
+            MessageBox.Show("Game over!");
+            
+            
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            CleanFigure();
-            int completedRowsCount;
-            board.Progress(out completedRowsCount);
-            DrawFigure(board.CurrentFigure);
-            if (completedRowsCount != 0)
+            if (GameIsOn)
             {
-                CleanFreeTiles();
+                CleanFigure();
+                int completedRowsCount;
+                board.Progress(out completedRowsCount);
+                DrawFigure(board.CurrentFigure);
+                if (completedRowsCount != 0)
+                {
+                    CleanFreeTiles();
+                }
+                DrawFrom(board.TakenPoints);
             }
-            DrawFrom(board.TakenPoints);
-
         }
 
         public void PaintTileAt(Point point, Brush brush)
@@ -168,5 +182,6 @@ namespace TetrisWPF
                 }
             }
         }
+
     }
 }

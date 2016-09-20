@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TetrisWPF
 {
-    public enum Direction {Left, Right, Down, Up}
+    public enum Direction {Left, Right, Down, Up, Spawn}
     public abstract class Figure
     {
         public List<Point> RelativeTakenPoints { get; protected set; }
@@ -56,6 +56,9 @@ namespace TetrisWPF
                                      break;
                 case Direction.Down: moveVector = new Point(0, 1);
                                      break;
+                case Direction.Spawn: moveVector = new Point(0, 0);
+                                      break;
+                
             }
             Point tempPoint;
             foreach (Point point in RelativeTakenPoints)
