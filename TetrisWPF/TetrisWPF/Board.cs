@@ -43,7 +43,6 @@ namespace TetrisWPF
             {
                 CurrentFigure.SettleOn(ref takenPoints);
                 CurrentFigure = null;
-
                 RemoveCompletedRows(out completedRowsCount);
 
             }
