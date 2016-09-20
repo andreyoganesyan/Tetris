@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetrisWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="420" Width="220" Background="#FFC5C5C5" KeyDown="Window_KeyDown" Closing="Window_Closing">
+        Title="MainWindow" Height="440" Width="217" Background="#FFC5C5C5" KeyDown="Window_KeyDown" Closing="Window_Closing" ResizeMode="NoResize">
     <Grid Name="Grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400*"/>
         </Grid.ColumnDefinitions>
+        <Label x:Name="startLbl" Content="Press [SPACE] to start" VerticalAlignment="Top" Margin="25,146,0,0" FontSize="16" HorizontalAlignment="Left" Width="162"/>
+        <Label x:Name="gamoverLbl" Content="            Game over&#xD;&#xA;  Press [SPACE] to restart" VerticalAlignment="Top" Margin="10,146,10,0" FontSize="16" Visibility="Hidden"/>
     </Grid>
 </Window>

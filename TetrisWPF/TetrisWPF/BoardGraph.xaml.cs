@@ -45,18 +45,18 @@ namespace TetrisWPF
                 }
             }
             timer = new System.Timers.Timer(300);
-            
+
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
-            
+
         }
 
         private void Board_onGameOver(object sender, EventArgs e)
         {
             GameIsOn = false;
-            MessageBox.Show("Game over!");
-            
-            
+            MainWindow.mainWindow.Gameover();
+
+
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -95,19 +95,21 @@ namespace TetrisWPF
         }
         void DrawFrom(byte[,] takenPoints)
         {
-            
+
             for (int i = 0; i < takenPoints.GetLength(0); i++)
             {
                 for (int j = 0; j < takenPoints.GetLength(1); j++)
                 {
-                    if (takenPoints[i, j] == 1) {
+                    if (takenPoints[i, j] == 1)
+                    {
                         PaintTileAt(new Point(j, i), Brushes.Black);
                     }
                 }
             }
         }
         void DrawFigure(Figure figure)
-        {   if (figure != null)
+        {
+            if (figure != null)
             {
                 foreach (Point point in figure.RelativeTakenPoints)
                 {
@@ -137,7 +139,9 @@ namespace TetrisWPF
             {
                 foreach (Point point in board.CurrentFigure.RelativeTakenPoints)
                 {
-                    PaintTileAt(point + board.CurrentFigure.coords, Brushes.White);
+
+                    if (board.CurrentFigure != null) PaintTileAt(point + board.CurrentFigure.coords, Brushes.White);
+                    else break;
                 }
             }
         }
@@ -145,10 +149,12 @@ namespace TetrisWPF
         {
             if (board != null && board.CurrentFigure != null)
             {
-                switch (e.Key) {
+                switch (e.Key)
+                {
                     case (Key.Left):
                         {
-                            if(board.CurrentFigure.CanMove(board.TakenPoints, Direction.Left)) {
+                            if (board.CurrentFigure.CanMove(board.TakenPoints, Direction.Left))
+                            {
                                 CleanFigure();
                                 board.CurrentFigure.Move(Direction.Left);
                                 DrawFigure(board.CurrentFigure);
@@ -157,7 +163,8 @@ namespace TetrisWPF
                         }
                     case (Key.Right):
                         {
-                            if (board.CurrentFigure.CanMove(board.TakenPoints, Direction.Right)) {
+                            if (board.CurrentFigure.CanMove(board.TakenPoints, Direction.Right))
+                            {
                                 CleanFigure();
                                 board.CurrentFigure.Move(Direction.Right);
                                 DrawFigure(board.CurrentFigure);
@@ -168,14 +175,37 @@ namespace TetrisWPF
                         {
                             if (board.CurrentFigure is RotatableFigure)
                             {
-                                
+
                                 if ((board.CurrentFigure as RotatableFigure).CanRotate(board.TakenPoints))
                                 {
                                     CleanFigure();
                                     (board.CurrentFigure as RotatableFigure).Rotate();
                                     DrawFigure(board.CurrentFigure);
                                 }
-                                
+
+                            }
+                            break;
+                        }
+                    case (Key.Down):
+                        {
+                            
+                            while (board.CurrentFigure.CanMove(board.TakenPoints, Direction.Down))
+                            {
+                                CleanFigure();
+                                board.CurrentFigure.Move(Direction.Down);
+                                DrawFigure(board.CurrentFigure);
+                            }
+                            if (GameIsOn)
+                            {
+                                CleanFigure();
+                                int completedRowsCount;
+                                board.Progress(out completedRowsCount);
+                                DrawFigure(board.CurrentFigure);
+                                if (completedRowsCount != 0)
+                                {
+                                    CleanFreeTiles();
+                                }
+                                DrawFrom(board.TakenPoints);
                             }
                             break;
                         }
