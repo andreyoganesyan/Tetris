@@ -63,7 +63,8 @@ namespace TetrisWPF
         {
             if (GameIsOn)
             {
-                CleanFigure();
+                //CleanFigure();
+                CleanFreeTiles();
                 int completedRowsCount;
                 board.Progress(out completedRowsCount);
                 DrawFigure(board.CurrentFigure);
@@ -189,7 +190,7 @@ namespace TetrisWPF
                     case (Key.Down):
                         {
                             
-                            while (board.CurrentFigure.CanMove(board.TakenPoints, Direction.Down))
+                            while (board.CurrentFigure != null && board.CurrentFigure.CanMove(board.TakenPoints, Direction.Down))
                             {
                                 CleanFigure();
                                 board.CurrentFigure.Move(Direction.Down);
