@@ -22,6 +22,7 @@ namespace TetrisWPF
     {
         Canvas canvas;
         Board board;
+        Tile[,] tiles;
         System.Timers.Timer timer;
         bool GameIsOn = true;
         public BoardGraph(int numOfRows, int numOfColumns, double width, double height, Point initialCoords)
@@ -31,6 +32,7 @@ namespace TetrisWPF
             board.onGameOver += Board_onGameOver;
             canvas = new Canvas();
             MainUC.AddChild(canvas);
+            tiles = new Tile[numOfRows, numOfColumns];
             canvas.Height = MainUC.Height;
             canvas.Width = MainUC.Width;
             for (int i = 0; i < board.Height; i++)
@@ -41,7 +43,7 @@ namespace TetrisWPF
                     canvas.Children.Add(tempTile);
                     Canvas.SetLeft(tempTile, j * (width / board.Width));
                     Canvas.SetTop(tempTile, i * (height / board.Height));
-                    tempTile.Name = "Tile" + i + "_" + j;
+                    tiles[i, j] = tempTile;
                 }
             }
             timer = new System.Timers.Timer(300);
@@ -80,18 +82,8 @@ namespace TetrisWPF
         {
             this.Dispatcher.Invoke(() =>
             {
-                for (int k = 0; k < canvas.Children.Count; k++)
-                {
-                    if (canvas.Children[k] is Tile)
-                    {
-                        Tile tile = canvas.Children[k] as Tile;
-                        if (tile.Name == "Tile" + point.Y + "_" + point.X)
-                        {
-                            tile.Paint(brush);
-                            return;
-                        }
-                    }
-                }
+                tiles[point.Y, point.X].Paint(brush);
+                
             });
         }
         void DrawFrom(byte[,] takenPoints)
